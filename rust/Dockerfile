@@ -24,12 +24,16 @@ ENV LC_ALL ja_JP.UTF-8
 RUN localedef -f UTF-8 -i ja_JP ja_JP.UTF-8
 
 # install rust
-#ENV RUST_VERSION stable
-ENV RUST_VERSION nightly
-ENV CARGO_HOME /usr/local
-ENV RUSTUP_HOME /usr/local
+ENV RUST_VERSION stable
+#ENV RUST_VERSION nightly
+
+ENV RUST_HOME /opt/rust
+RUN mkdir -p ${RUST_HOME}
+ENV CARGO_HOME ${RUST_HOME}
+ENV RUSTUP_HOME ${RUST_HOME}
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain ${RUST_VERSION}
-ENV PATH $PATH:${HOME}/.cargo/bin
+ENV PATH ${RUST_HOME}/bin:$PATH
+RUN echo 'export PATH=$PATH:/opt/rust/bin' >> /etc/profile
 RUN rustup update
 #RUN cargo install --git 'https://github.com/phildawes/racer.git'
 #RUN cargo install racer
@@ -37,7 +41,9 @@ RUN rustup update
 RUN rustup component add rust-src --toolchain $RUST_VERSION
 RUN rustup component add rls-preview --toolchain $RUST_VERSION
 RUN rustup component add rust-analysis --toolchain $RUST_VERSION
-ENV RUST_SRC_PATH /usr/local/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
+#RUN cargo install racer
+ENV RUST_SRC_PATH /opt/rust/toolchains/${RUST_VERSION}-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
+RUN chmod -R 777 ${RUST_HOME}
 
 
 # install neovim
