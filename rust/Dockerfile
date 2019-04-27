@@ -6,14 +6,14 @@ RUN \
   apt-get update \
   && apt-get upgrade -y \
   && apt-get -y --no-install-recommends install \
-    ca-certificates vim curl git make apt-utils bash sudo build-essential xorg dbus dbus-x11 gtk2-engines \
-    libreadline-dev libsqlite3-dev wget llvm libncurses5-dev libncursesw5-dev \
-    make build-essential libssl-dev zlib1g-dev libbz2-dev \
-    xz-utils tk-dev libffi-dev liblzma-dev python-openssl git \
-    zlib1g zlib1g-dev gzip ssh-client screenfetch \
-    libedit-dev \
-    python3-pip \
-    locales \
+    bash                sudo                build-essential     vim                 curl                \
+    ca-certificates     wget                git                 make                apt-utils           \
+    llvm                screenfetch         wamerican-huge      locales             dbus                \
+    ssh-client          python3-pip         python-openssl                                              \
+    libedit-dev         libncurses5-dev     libncursesw5-dev                                            \
+    libssl-dev          gzip                libbz2-dev          zlib1g              zlib1g-dev          \
+    xz-utils            tk-dev              libffi-dev          liblzma-dev                             \
+    xorg                dbus-x11            gtk2-engines        libreadline-dev     libsqlite3-dev      \
   && rm -rf /var/lib/apt/lists/* \
   && echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
