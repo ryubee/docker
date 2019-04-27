@@ -37,7 +37,7 @@ RUN rustup update
 RUN rustup component add rust-src --toolchain $RUST_VERSION
 RUN rustup component add rls-preview --toolchain $RUST_VERSION
 RUN rustup component add rust-analysis --toolchain $RUST_VERSION
-ENV RUST_SRC_PATH '$(echo /usr/local/toolchains/*/lib/rustlib/src/rust/src)'
+ENV RUST_SRC_PATH /usr/local/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
 
 
 # install neovim
@@ -54,10 +54,10 @@ ENV PATH ${PYENV_ROOT}/bin:${PATH}
 RUN echo 'export PYENV_ROOT="/opt/pyenv"' >> /etc/profile \
  && echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> /etc/profile \
  && echo 'eval "$(pyenv init -)"' >> /etc/profile
-RUN chmod -R 777 /opt/pyenv
-
+            
 RUN pyenv install 3.7.3
 RUN pyenv global 3.7.3
+RUN chmod -R 777 /opt/pyenv
 
 RUN ["/bin/bash", "-c", " \
         source /etc/profile \
